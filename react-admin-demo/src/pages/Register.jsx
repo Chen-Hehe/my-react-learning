@@ -1,0 +1,1 @@
+export default function Register() { return <h2>这是注册页</h2> }
