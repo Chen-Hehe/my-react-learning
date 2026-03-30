@@ -1,33 +1,48 @@
-// src/pages/Login.jsx
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userStore from "../store/userStore";
-// 引入我们刚刚配置好的 Axios 实例
+// 引入刚刚配好的 axios
 import request from "../api/request"; 
 
 export default function Login() {
   const navigate = useNavigate();
+  
+  // 1. 定义账号和密码的状态，初始值为空字符串
+  const [username, setUsername] = useState(""); 
+  const [password, setPassword] = useState(""); 
 
   const handleLogin = async () => {
-    try {
-      // 🚧 假设这是真实的后端接口请求
-      // const res = await request.post("/login", { username: "admin", password: "123" });
-      
-      // 为了演示，我们模拟后端返回了数据
-      console.log("正在发送请求...");
-      const mockToken = "test-jwt-token-123456";
-      
-      userStore.login(mockToken);
-      navigate("/admin/user");
-      alert("登录成功");
-    } catch (error) {
-      console.error("登录失败", error);
-    }
+    console.log("准备发送给后端的账号:", username, "密码:", password);
+    // 模拟登录成功逻辑...
+    const mockToken = "test-jwt-token-123456";
+    userStore.login(mockToken);
+    navigate("/admin/user");
   };
 
   return (
     <div style={{ padding: '40px' }}>
       <h2>这是登录页</h2>
-      <button onClick={handleLogin}>点我发送登录请求</button>
+      
+      {/* 账号输入框 */}
+      <div>
+        <input 
+          placeholder="账号" 
+          value={username} 
+          onChange={(e) => setUsername(e.target.value)} 
+        />
+      </div>
+
+      {/* 密码输入框 */}
+      <div style={{ margin: "10px 0" }}>
+        <input 
+          placeholder="密码" 
+          type="password" 
+          value={password} 
+          onChange={(e) => setPassword(e.target.value)} 
+        />
+      </div>
+
+      <button onClick={handleLogin}>登录</button>
     </div>
   );
 }
